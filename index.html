@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="begin">
+        <h1>Comparison Sorting Algorithms</h1>
+      </div>
+
+      <div class="mainContent">
+        <div class="algoDiv">
+          <table id="allSortingAlgo">
+            <td>
+              <h5>Enter Array Size (4-70):</h5>
+            </td>
+            <td>
+              <input type="text" id="arraySize" placeholder="ArraySize"/>
+            </td>
+            <td>
+              <input id="randomizeButton" type="button" value="Randomize Array" />
+            </td>
+
+            <td>
+              <input id="insertionSortButton" type="button" value="Insertion Sort" />
+            </td>
+
+            <td>
+              <input id="selectionSortButton" type="button" value="Selection Sort" />
+            </td>
+
+            <td>
+              <input id="bubbleSortButton" type="button" value="Bubble Sort" />
+            </td>
+
+            <td>
+              <input id="quickSortButton" type="button" value="Quick Sort" />
+            </td>
+
+            <td>
+              <input id="mergeSortButton" type="button" value="Merge Sort" />
+            </td>
+
+            <td>
+              <input id="shellSortButton" type="button" value="Shell Sort" />
+            </td>
+
+            <!-- <td>
+              <input id="pauseButton" type="button" value="Pause" />
+              <input style="display: none;" id="playButton" type="button" value="Play"/>
+            </td> -->
+          </table>
+        </div>
+
+        <div id="Container">
+            <div id="array"></div>
+        </div>
+
+        <div class="belowButtons">
+          <table>
+            <td>
+              <h3>Speed</h3>
+            </td>
+            <td>
+              <input class="slider" id="sleepIntervalSlider" type="range" max="1000" min="1" value="1" />
+              </td>
+              <td>
+              <p>Value: <span id="demo">1</span></p>
+            </td>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./sorting/generatearray.js"></script>
+    <script type="module" src="./sorting/randomarray.js"></script>
+    <script type="module" src="./sorting/insertionSort.js"></script>
+    <script type="module" src="./sorting/selectionSort.js"></script>
+    <script type="module" src="./sorting/bubbleSort.js"></script>
+    <script type="module" src="./sorting/mergeSort.js"></script>
+    <script type="module" src="./sorting/quickSort.js"></script>
+    <script type="module" src="./sorting/shellSort.js"></script>
+    <script type="module" src="./sorting/sort.js"></script>
+    <script type="module" src="./sorting/slider.js"></script>
+    <script type="module" src="./sorting/playPause.js"></script>
+  </body>
+</html>
