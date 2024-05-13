@@ -1,10 +1,10 @@
 import { data1 } from "./generatearray.js";
 import { updateBars, changeBarColor } from './sort.js';
+import { newSleepInterval } from "./slider.js";
+import { disableAllButtons,enableAllButtons } from "./enableDisable.js";
 
 document.getElementById("mergeSortButton").addEventListener("click", start);
 
-const newSleepInterval = 1000;
-// Function to perform merge sort
 async function mergeSort(arr) {
     if (arr.length <= 1) {
         return arr;
@@ -14,11 +14,16 @@ async function mergeSort(arr) {
     const left = arr.slice(0, middle);
     const right = arr.slice(middle);
 
-    // Recursively split and merge the subarrays
-    return merge(await mergeSort(left), await mergeSort(right));
+    changeBarColor(document.querySelectorAll('.bar')[middle], 'orange');
+    await sleep(newSleepInterval);
+
+    const sortedLeft = await mergeSort(left);
+    const sortedRight = await mergeSort(right);
+
+    return merge(sortedLeft, sortedRight);
 }
 
-// Function to merge two sorted arrays
+
 async function merge(left, right) {
     let result = [];
     let leftIndex = 0;
@@ -33,31 +38,29 @@ async function merge(left, right) {
             rightIndex++;
         }
 
-        // Update chart and add a delay for visualization
-        updateBars(result);
+        updateBars(result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex)));
         await sleep(newSleepInterval);
     }
 
-    // Append remaining elements of left or right array
     return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
 
-// Function to start the merge sort process
-async function start() {
-    // Perform merge sort on data1 array
-    const sortedArray = await mergeSort(data1);
 
-    // Update chart with the final sorted array
+async function start() {
+    disableAllButtons();
+
+    const sortedArray = await mergeSort(data1.slice()); 
+
     updateBars(sortedArray);
 
-    // Turn all bars green to indicate final sorted state
     const bars = document.querySelectorAll('.bar');
     bars.forEach(bar => {
         changeBarColor(bar, 'green');
     });
+
+    enableAllButtons();
 }
 
-// Utility function to simulate delay (sleep)
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

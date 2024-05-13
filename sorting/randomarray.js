@@ -1,48 +1,39 @@
-import { changeBarColor } from './sort.js';
+import { generateRandomArray } from "./generatearray.js";
 
-document.getElementById("insertionSortButton").addEventListener("click", insertionSort);
+document.addEventListener("DOMContentLoaded", function () {
+  renderBarGraph();
 
-async function insertionSort() {
-    const bars = document.querySelectorAll('.bar');
-
-    for (let i = 1; i < bars.length; i++) {
-        let keyBar = bars[i];
-        let keyHeight = parseInt(keyBar.style.height);
-        let j = i - 1;
-
-        changeBarColor(keyBar, 'blue'); // Highlight the key bar being considered
-
-        while (j >= 0 && parseInt(bars[j].style.height) > keyHeight) {
-            changeBarColor(bars[j], 'red'); // Highlight the bar being compared
-
-            await swapBars(bars[j], bars[j + 1]);
-
-            changeBarColor(bars[j], 'steelblue'); // Reset color after swap
-            j--;
-        }
-
-        changeBarColor(keyBar, 'steelblue'); // Reset color of key bar
-    }
-}
-
-async function swapBars(bar1, bar2) {
-    return new Promise(resolve => {
-        const distance = bar2.offsetLeft - bar1.offsetLeft;
-
-        bar1.style.transition = 'transform 0.5s ease';
-        bar2.style.transition = 'transform 0.5s ease';
-        bar1.style.transform = `translateX(${distance}px)`;
-        bar2.style.transform = `translateX(-${distance}px)`;
-
-        setTimeout(() => {
-            bar1.style.transition = 'none';
-            bar2.style.transition = 'none';
-            bar1.style.transform = 'none';
-            bar2.style.transform = 'none';
-
-            bar1.parentNode.insertBefore(bar2, bar1);
-            resolve();
-        }, 500);
+  document
+    .getElementById("randomizeButton")
+    .addEventListener("click", function () {
+      renderBarGraph();
     });
-}
+});
 
+function renderBarGraph() {
+ const data=generateRandomArray();
+  const graphContainer = document.getElementById("array");
+
+  // Clear existing content in graphContainer if needed
+  graphContainer.innerHTML = "";
+
+  // Loop through the data array to create bars
+  data.forEach((value, index) => {
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${value}%`;
+
+    const numberLabel = document.createElement("span");
+    numberLabel.textContent = value; // Set the text content to the bar's value
+    numberLabel.className = "number-label";
+    bar.appendChild(numberLabel);
+
+    // Append the bar to the graph container
+    graphContainer.appendChild(bar);
+
+    // Animate the bar width after a delay
+    setTimeout(() => {
+      bar.style.width = "30px";
+    }, 100 * index); // Adjust delay as needed
+  });
+}

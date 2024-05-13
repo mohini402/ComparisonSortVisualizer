@@ -1,9 +1,9 @@
 import { data1 } from "./generatearray.js";
 import { updateBars, changeBarColor } from './sort.js';
+import { newSleepInterval } from "./slider.js";
+import { disableAllButtons,enableAllButtons } from "./enableDisable.js";
 
 document.getElementById("shellSortButton").addEventListener("click", start);
-
-const newSleepInterval = 100; // Adjust the sleep interval for visualization (milliseconds)
 
 async function shellSort(data1) {
     var n = data1.length;
@@ -14,14 +14,14 @@ async function shellSort(data1) {
             var temp = data1[i];
             var j = i;
 
-            // Highlight the current element being considered (swapped)
+            // Highlight the current element being considered
             changeBarColor(document.querySelectorAll('.bar')[j], 'blue');
 
+            // Perform insertion sort on subarrays defined by the current gap
             while (j >= gap && data1[j - gap] > temp) {
-                // Temporarily highlight the element being compared (swapped)
+                // Highlight the element being compared
                 changeBarColor(document.querySelectorAll('.bar')[j - gap], 'red');
 
-                // Perform the swap operation
                 data1[j] = data1[j - gap];
                 j -= gap;
 
@@ -30,7 +30,7 @@ async function shellSort(data1) {
                 await sleep(newSleepInterval);
 
                 // Restore color after comparison
-                changeBarColor(document.querySelectorAll('.bar')[j], 'blue');
+                changeBarColor(document.querySelectorAll('.bar')[j], 'steelblue');
             }
 
             // Place the current element in its correct position
@@ -38,21 +38,21 @@ async function shellSort(data1) {
             updateBars(data1);
             await sleep(newSleepInterval);
 
-            // Highlight the sorted element
+            // Restore color of the sorted element
             changeBarColor(document.querySelectorAll('.bar')[j], 'green');
         }
-
         gap = Math.floor(gap / 2);
     }
 
-    // Highlight all bars in green to indicate final sorted state
     document.querySelectorAll('.bar').forEach(bar => {
         changeBarColor(bar, 'green');
     });
 }
 
 async function start() {
-    await shellSort(data1); // Start the shell sort algorithm
+    disableAllButtons();
+    await shellSort(data1);
+    enableAllButtons();
 }
 
 async function sleep(ms) {

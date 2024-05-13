@@ -1,8 +1,14 @@
 var data1=[];
 function generateRandomArray() {
+  const Size=document.getElementById("arraySize");
+  const size = parseInt(Size.value);
+    let len=20;
     data1=[];
     const data = [];
-    const len = 30;
+    if(size>=4 && size<=70)
+    {
+      len=size;
+    }
   
     // Generate random data for bar heights
     for (let i = 0; i < len; i++) {

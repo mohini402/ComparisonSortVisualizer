@@ -1,7 +1,7 @@
 import { data1 } from "./generatearray.js";
 import { updateBars , changeBarColor } from "./sort.js";
 import { newSleepInterval } from "./slider.js";
-import { disableAllButtons,enableAllButtons } from "./playPause.js";
+import { disableAllButtons,enableAllButtons } from "./enableDisable.js";
 
 document.getElementById("bubbleSortButton").addEventListener("click", bubbleSort);
 

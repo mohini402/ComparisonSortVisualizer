@@ -1,12 +1,13 @@
 import { data1 } from "./generatearray.js";
 import { updateBars, changeBarColor } from "./sort.js";
 import { newSleepInterval } from "./slider.js";
-
+import { disableAllButtons,enableAllButtons } from "./enableDisable.js";
 document
   .getElementById("selectionSortButton")
   .addEventListener("click", selectionSort);
 
   async function selectionSort() {
+    disableAllButtons();
     const bars=document.querySelectorAll('.bar');
     for (let i = 0; i < data1.length - 1; i++) {
         let minIndex = i;
@@ -57,6 +58,7 @@ document
     bars.forEach(bar => {
         changeBarColor(bar, 'green');
     });
+    enableAllButtons();
 }
 
 async function sleep(ms) {

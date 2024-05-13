@@ -6,7 +6,7 @@ function updateBars(data)
         setTimeout(() => {
             bar.style.height = `${data[index]}%`;
             bar.querySelector('.number-label').textContent = data[index];
-        }, index * 100); // Adjust delay for smoother animation
+        }, index * 10); 
     });
 }
 
